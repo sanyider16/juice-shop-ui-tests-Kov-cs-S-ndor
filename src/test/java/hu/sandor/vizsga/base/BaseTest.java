@@ -114,6 +114,12 @@ public class BaseTest {
 	        wait.until((ExpectedConditions.urlContains("#/login")));
 	        wait.until(ExpectedConditions.visibilityOfElementLocated(
 	        		By.id("email")));
+	        
+	        wait.until(ExpectedConditions.invisibilityOfElementLocated(
+	                By.cssSelector(
+	                        ".mat-mdc-snack-bar-container, "
+	                        + ".mat-snack-bar-container, "
+	                        + ".mdc-snackbar")));
 			
 	          			  }
 	
