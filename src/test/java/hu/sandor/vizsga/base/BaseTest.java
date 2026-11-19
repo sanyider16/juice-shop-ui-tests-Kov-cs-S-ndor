@@ -23,13 +23,21 @@ public class BaseTest {
 	protected String password;
 	
 	protected ChromeOptions createChromeOptions() {
-		return new ChromeOptions();
+
+	    ChromeOptions options = new ChromeOptions();
+
+	    if (Boolean.getBoolean("headless")) {
+	        options.addArguments("--headless=new");
+	        options.addArguments("--window-size=1920,1080");
+	    }
+
+	    return options;
 	}
-		
-		@BeforeEach
-		  protected void setUp() {
-			
-			driver = new ChromeDriver(createChromeOptions());
+
+	@BeforeEach
+	protected void setUp() {
+
+	    driver = new ChromeDriver(createChromeOptions());
 			
 			driver.manage().window().maximize();
 			
