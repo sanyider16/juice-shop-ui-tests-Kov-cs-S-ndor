@@ -48,23 +48,43 @@ public class BaseTest {
 			
 			driver.get("https://demo.owasp-juice.shop/#/register");
 			
-			By WelcomeButton =
-					By.cssSelector("button[aria-label='Close Welcome Banner']");
-			
-			wait.until(ExpectedConditions.elementToBeClickable(WelcomeButton))
-			       .click();
-			
+			By welcomeButton = By.cssSelector(
+			        "button[aria-label='Close Welcome Banner']");
+
+			new WebDriverWait(driver, Duration.ofSeconds(20))
+			        .ignoring(ElementClickInterceptedException.class)
+			        .until(browser -> {
+			            browser.findElement(welcomeButton).click();
+			            return true;
+			        });
+
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(
-					WelcomeButton));
+			        welcomeButton));
+
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(
-					By.cssSelector("mat-dialog-container")));
-			
-		wait.until(ExpectedConditions.elementToBeClickable(
-				By.cssSelector(".cc-dismiss"))).click();
-		
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.cssSelector(".cc-window")));
-			
+			        By.cssSelector(
+			                "mat-dialog-container, .mat-mdc-dialog-container")));
+
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(
+			        By.cssSelector(".cdk-overlay-backdrop")));
+
+			new WebDriverWait(driver, Duration.ofSeconds(20))
+			        .ignoring(ElementClickInterceptedException.class)
+			        .until(browser -> {
+			            var cookieButton = browser.findElement(
+			                    By.cssSelector(".cc-dismiss"));
+
+			            if (!cookieButton.isDisplayed()
+			                    || !cookieButton.isEnabled()) {
+			                return false;
+			            }
+
+			            cookieButton.click();
+			            return true;
+			        });
+
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(
+			        By.cssSelector(".cc-window")));	
 			
 			wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.id("emailControl")))
