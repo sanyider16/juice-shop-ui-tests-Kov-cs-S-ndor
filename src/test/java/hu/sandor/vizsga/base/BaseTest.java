@@ -56,13 +56,24 @@ public class BaseTest {
 			By welcomeButton = By.cssSelector(
 			        "button[aria-label='Close Welcome Banner']");
 
-			new WebDriverWait(driver, Duration.ofSeconds(20))
-			        .ignoring(ElementClickInterceptedException.class)
-			        .until(browser -> {
-			            browser.findElement(welcomeButton).click();
-			            return true;
-			        });
+			try {
+			    new WebDriverWait(driver, Duration.ofSeconds(20))
+			            .ignoring(ElementClickInterceptedException.class)
+			            .until(browser -> {
+			                browser.findElement(welcomeButton).click();
+			                return true;
+			            });
 
+			} catch (org.openqa.selenium.TimeoutException error) {
+
+			    System.out.println("HIBA - URL: " + driver.getCurrentUrl());
+			    System.out.println("HIBA - Oldalcím: " + driver.getTitle());
+			    System.out.println("HIBA - Oldal tartalma:");
+			    System.out.println(
+			            driver.findElement(By.tagName("body")).getText());
+
+			    throw error;
+			}
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(
 			        welcomeButton));
 
