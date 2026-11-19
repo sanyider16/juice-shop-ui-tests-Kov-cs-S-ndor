@@ -1,0 +1,13 @@
+Azonosító;Funkció;Tesztosztály;Lépések;Elvárt eredmény
+TC01;Regisztráció;RegistrationTest;Érvényes regisztrációs adatok kitöltése és elküldése;Sikeres regisztráció után megjelenik a bejelentkezési oldal
+TC02;Bejelentkezés;LoginTest;Regisztrált felhasználó adatainak megadása és bejelentkezés;Az Account menüben megjelenik a Logout lehetőség
+TC03;Adatkezelési nyilatkozat;PrivacyPolicyTest;Adatkezelési nyilatkozat megnyitása;Megjelenik a nyilatkozat címe és tartalma
+TC04;Termékek listázása;HomePageTest;Terméklista megnyitása;Legalább egy termék megjelenik
+TC05;Lapozás;PaginationTest;Első termék megjegyzése és következő oldalra lapozás;Megváltozik az elsőként megjelenő termék
+TC06;Új cím bevitele;AddAddressTest;Bejelentkezés után cím kitöltése és mentése;A megadott cím megjelenik a mentett címek között
+TC07;Cím módosítása;EditAddressTest;Mentett cím utcájának módosítása és mentése;Az új utca megjelenik és a régi eltűnik
+TC08;Cím törlése;DeleteAddressTest;Egyetlen mentett cím törlése;A címsor eltűnik a listából
+TC09;Sorozatos adatbevitel;BulkAddressTest;Az addresses.csv adatsorainak rögzítése külön címekként;Minden cím megjelenik és számuk egyezik a CSV adatsorainak számával
+TC10;Vásárlás;PurchaseTest;Termék kosárba helyezése és rendelés véglegesítése cím, szállítás és tesztkártya megadásával;Megjelenik a Thank you for your purchase! visszaigazolás
+TC11;Adatok lementése;DataExportTest;JSON-export kérése és a megjelent adatok fájlba mentése;Az export tartalmazza a felhasználó e-mail-címét és a mentett tartalom egyezik az exporttal
+TC12;Kijelentkezés;LogoutTest;Bejelentkezés után kijelentkezés az Account menüből;Az Account menüben megjelenik a Login lehetőség

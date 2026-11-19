@@ -1,0 +1,1 @@
+package hu.sandor.vizsga.registration;
