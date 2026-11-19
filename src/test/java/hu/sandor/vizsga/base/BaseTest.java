@@ -39,7 +39,12 @@ public class BaseTest {
 
 	    driver = new ChromeDriver(createChromeOptions());
 			
-			driver.manage().window().maximize();
+	    if (Boolean.getBoolean("headless")) {
+	        driver.manage().window().setSize(
+	                new org.openqa.selenium.Dimension(1920, 1080));
+	    } else {
+	        driver.manage().window().maximize();
+	    }
 			
 			wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 			

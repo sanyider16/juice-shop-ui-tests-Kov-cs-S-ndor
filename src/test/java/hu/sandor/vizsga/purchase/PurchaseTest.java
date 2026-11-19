@@ -58,8 +58,21 @@ public class PurchaseTest extends BaseTest {
 		System.out.println("Pénztár aktív: "
 				+ driver.findElement(By.id("checkoutButton")).isEnabled());
 		
-		wait.until(ExpectedConditions.elementToBeClickable(
-				By.id("checkoutButton"))).click();
+		new WebDriverWait(driver, Duration.ofSeconds(20))
+        .ignoring(ElementClickInterceptedException.class)
+        .until(browser -> {
+
+            var checkoutButton = browser.findElement(
+                    By.id("checkoutButton"));
+
+            if (!checkoutButton.isDisplayed()
+                    || !checkoutButton.isEnabled()) {
+                return false;
+            }
+
+            checkoutButton.click();
+            return true;
+        });
 		wait.until(ExpectedConditions.elementToBeClickable(
 				By.cssSelector("button[aria-label='Add New Address']")))
 		        .click();

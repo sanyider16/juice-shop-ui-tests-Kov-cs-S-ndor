@@ -44,12 +44,29 @@ public class RegistrationTest extends BaseTest{
 		driver.findElement(By.id("repeatPasswordControl"))
 		    .sendKeys(password);
 		
-		wait.until(ExpectedConditions.elementToBeClickable(
-				By.id("securityQuestionControl"))).click();
-		
-		wait.until(ExpectedConditions.elementToBeClickable(
-				By.cssSelector("mat-option"))).click();
-		
+		new WebDriverWait(driver, Duration.ofSeconds(20))
+        .ignoring(ElementClickInterceptedException.class)
+        .until(browser -> {
+
+            var options = browser.findElements(
+                    By.cssSelector("mat-option"));
+
+            for (var option : options) {
+                if (option.isDisplayed() && option.isEnabled()) {
+                    option.click();
+                    return true;
+                }
+            }
+
+            var question = browser.findElement(
+                    By.id("securityQuestionControl"));
+
+            if (!"true".equals(question.getAttribute("aria-expanded"))) {
+                question.click();
+            }
+
+            return false;
+        });
 		driver.findElement(By.id("securityAnswerControl"))
 				.sendKeys("TesztValasz");
 		new WebDriverWait(driver, Duration.ofSeconds(20))
